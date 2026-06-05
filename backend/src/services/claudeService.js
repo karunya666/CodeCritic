@@ -1,19 +1,22 @@
-const Anthropic = require("@anthropic-ai/sdk");
+const Groq = require("groq-sdk");
 
-const client = new Anthropic({
-  apiKey: process.env.ANTHROPIC_API_KEY,
+const client = new Groq({
+  apiKey: process.env.GROQ_API_KEY,
 });
 
 const reviewCode = async (code) => {
-  const response = await client.messages.create({
-    model: "claude-sonnet-4-20250514",
+  const response = await client.chat.completions.create({
+    model: "llama-3.3-70b-versatile",
     max_tokens: 2000,
     messages: [
       {
+        role: "system",
+        content: `You are an expert code reviewer who supports all programming languages. 
+You always respond with ONLY a valid JSON object. No markdown, no backticks, no extra text. Just raw JSON.`,
+      },
+      {
         role: "user",
-        content: `Analyze this code and return ONLY a valid JSON object. No markdown, no backticks, no extra text. Just raw JSON.
-
-The JSON must follow this exact shape:
+        content: `Analyze this code and return ONLY a valid JSON object with this exact shape:
 {
   "language": "detected programming language name in lowercase (e.g. javascript, python, java, cpp, go, rust, etc.)",
   "title": "a short 4-6 word title describing what this code does",
@@ -35,7 +38,7 @@ The JSON must follow this exact shape:
   "explanation": "2-3 sentence overall summary of the code quality and key takeaways"
 }
 
-If there are no errors, return an empty array for errors. Same for improvements.
+If there are no errors return an empty array. Same for improvements.
 
 Code to analyze:
 \`\`\`
@@ -45,13 +48,8 @@ ${code}
     ],
   });
 
-  const raw = response.content
-    .map((block) => (block.type === "text" ? block.text : ""))
-    .join("")
-    .trim();
-
+  const raw = response.choices[0].message.content.trim();
   const clean = raw.replace(/```json|```/g, "").trim();
-
   const parsed = JSON.parse(clean);
 
   return parsed;
