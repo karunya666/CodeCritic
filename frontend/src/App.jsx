@@ -6,8 +6,10 @@ import SignIn from './pages/SignIn'
 import SignUp from './pages/SignUp'
 import Review from './pages/Review'
 import Visualise from './pages/Visualise'
+import SSOCallback from './pages/SSOCallback'
 
 import { AuthenticateWithRedirectCallback } from '@clerk/clerk-react'
+
 
 const ProtectedRoute = ({ children }) => {
   const { isSignedIn, isLoaded } = useAuth()
@@ -29,6 +31,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/sign-in" element={<SignIn />} />
         <Route path="/sign-up" element={<SignUp />} />
+        <Route path="/sso-callback" element={<SSOCallback />} />
         <Route
           path="/review"
           element={
@@ -44,10 +47,6 @@ function App() {
               <Visualise />
             </ProtectedRoute>
           }
-        />
-        <Route
-          path="/sso-callback"
-          element={<AuthenticateWithRedirectCallback />}
         />
       </Routes>
     </BrowserRouter>
