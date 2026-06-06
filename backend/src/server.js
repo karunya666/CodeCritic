@@ -17,7 +17,10 @@ app.use(helmet());
 app.use(morgan("dev"));
 app.use(
   cors({
-    origin: process.env.CLIENT_URL || "http://localhost:5173",
+    origin: [
+      "http://localhost:5173",
+      "https://code-critic-six.vercel.app",
+    ],
     credentials: true,
   })
 );
