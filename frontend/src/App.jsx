@@ -7,6 +7,8 @@ import SignUp from './pages/SignUp'
 import Review from './pages/Review'
 import Visualise from './pages/Visualise'
 
+import { AuthenticateWithRedirectCallback } from '@clerk/clerk-react'
+
 const ProtectedRoute = ({ children }) => {
   const { isSignedIn, isLoaded } = useAuth()
 
@@ -42,6 +44,10 @@ function App() {
               <Visualise />
             </ProtectedRoute>
           }
+        />
+        <Route
+          path="/sso-callback"
+          element={<AuthenticateWithRedirectCallback />}
         />
       </Routes>
     </BrowserRouter>

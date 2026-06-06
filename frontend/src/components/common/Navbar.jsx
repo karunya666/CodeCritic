@@ -1,5 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom'
-import { useAuth, UserButton } from '@clerk/clerk-react'
+import { useAuth } from '@clerk/clerk-react'
+import ProfileMenu from './ProfileMenu'
 
 export default function Navbar() {
   const { isSignedIn } = useAuth()
@@ -48,13 +49,7 @@ export default function Navbar() {
       {/* Auth */}
       <div className="flex items-center gap-2">
         {isSignedIn ? (
-          <UserButton
-            appearance={{
-              elements: {
-                avatarBox: 'w-6 h-6',
-              }
-            }}
-          />
+          <ProfileMenu />
         ) : (
           <div className="flex items-center gap-1.5">
             <Link
