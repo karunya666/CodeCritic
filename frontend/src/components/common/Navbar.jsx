@@ -23,12 +23,18 @@ export default function Navbar() {
       }}
     >
       {/* Logo */}
-      <Link to="/" className="flex items-center gap-2">
-        <div className="w-2 h-2 rounded-full bg-primary" />
-        <span className="text-white font-semibold text-base tracking-tight">
-          CodeCritic
-        </span>
-      </Link>
+      {/* Logo */}
+<Link to="/" className="flex items-center gap-2">
+  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="10" cy="10" r="9" stroke="#5E5CE6" strokeWidth="1.5"/>
+    <path d="M6 10L9 7L12 10L9 13L6 10Z" stroke="#5E5CE6" strokeWidth="1.5" strokeLinejoin="round"/>
+    <path d="M11 10H14" stroke="#00D2FF" strokeWidth="1.5" strokeLinecap="round"/>
+    <path d="M12 8L14 10L12 12" stroke="#00D2FF" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+  </svg>
+  <span className="text-white font-semibold text-base tracking-tight">
+    CodeCritic
+  </span>
+</Link>
 
       {/* Nav Links */}
       <div className="flex items-center gap-0.5">

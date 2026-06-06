@@ -7,6 +7,7 @@ import SignUp from './pages/SignUp'
 import Review from './pages/Review'
 import Visualise from './pages/Visualise'
 import SSOCallback from './pages/SSOCallback'
+import PageLoader from './components/common/PageLoader'
 
 import { AuthenticateWithRedirectCallback } from '@clerk/clerk-react'
 
@@ -26,6 +27,7 @@ const ProtectedRoute = ({ children }) => {
 function App() {
   return (
     <BrowserRouter>
+      <PageLoader />
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
