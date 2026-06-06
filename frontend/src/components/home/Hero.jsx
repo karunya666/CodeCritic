@@ -61,24 +61,27 @@ export default function Hero() {
         </p>
 
         {/* CTAs */}
-        <div className="flex items-center gap-3">
-          <Link
-            to={isSignedIn ? '/review' : '/sign-up'}
-            className="px-5 py-2.5 rounded text-sm font-medium text-white transition-all duration-150"
-            style={{ background: '#5E5CE6' }}
-            onMouseEnter={e => e.target.style.background = '#4D4AD5'}
-            onMouseLeave={e => e.target.style.background = '#5E5CE6'}
-          >
-            Start reviewing →
-          </Link>
-          <Link
-            to={isSignedIn ? '/review' : '/sign-in'}
-            className="px-5 py-2.5 rounded text-sm font-medium text-text-muted hover:text-white transition-colors duration-150"
-            style={{ border: '1px solid rgba(255,255,255,0.08)' }}
-          >
-            Sign in
-          </Link>
-        </div>
+        {/* CTAs */}
+<div className="flex items-center gap-3">
+  <Link
+    to={isSignedIn ? '/review' : '/sign-up'}
+    className="px-5 py-2.5 rounded text-sm font-medium text-white transition-all duration-150"
+    style={{ background: '#5E5CE6' }}
+    onMouseEnter={e => e.target.style.background = '#4D4AD5'}
+    onMouseLeave={e => e.target.style.background = '#5E5CE6'}
+  >
+    {isSignedIn ? 'Go to Review →' : 'Start reviewing →'}
+  </Link>
+  {!isSignedIn && (
+    <Link
+      to="/sign-in"
+      className="px-5 py-2.5 rounded text-sm font-medium text-text-muted hover:text-white transition-colors duration-150"
+      style={{ border: '1px solid rgba(255,255,255,0.08)' }}
+    >
+      Sign in
+    </Link>
+  )}
+</div>
 
         {/* Code snippet preview */}
         <div className="mt-16 w-full max-w-2xl rounded-lg overflow-hidden"

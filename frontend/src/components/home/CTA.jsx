@@ -49,15 +49,17 @@ export default function CTA() {
                 onMouseEnter={e => e.target.style.background = '#4D4AD5'}
                 onMouseLeave={e => e.target.style.background = '#5E5CE6'}
               >
-                Start for free →
+                {isSignedIn ? 'Go to Review →' : 'Start for free →'}
               </Link>
-              <Link
-                to="/sign-in"
-                className="px-6 py-2.5 rounded text-sm font-medium text-text-muted hover:text-white transition-colors duration-150"
-                style={{ border: '1px solid rgba(255,255,255,0.08)' }}
-              >
-                Sign in
-              </Link>
+              {!isSignedIn && (
+                <Link
+                  to="/sign-in"
+                  className="px-6 py-2.5 rounded text-sm font-medium text-text-muted hover:text-white transition-colors duration-150"
+                  style={{ border: '1px solid rgba(255,255,255,0.08)' }}
+                >
+                  Sign in
+                </Link>
+              )}
             </div>
           </div>
         </div>
