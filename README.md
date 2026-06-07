@@ -1,6 +1,6 @@
 # CodeCritic: AI-Powered Code Review Platform
 
-![CodeCritic Home Page](YOUR_SCREENSHOT_URL_HERE)
+![CodeCritic Home Page](https://github.com/user-attachments/assets/cf32b34f-86af-40d0-b8cb-c12bba4e6c18)
 
 **Live Demo:** https://code-critic-six.vercel.app
 
