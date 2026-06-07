@@ -252,15 +252,7 @@ MongoDB Atlas
 ## 🎯 Future Enhancements
 
 * Algorithm Visualizer with step-by-step execution.
-* GitHub repository integration.
 * Export code reviews as PDF.
-* Public shareable review links.
-* VS Code extension.
-* Team collaboration features.
-* Review analytics dashboard.
-* AI-generated coding interview feedback.
-* Rate limiting and advanced monitoring.
-* Migration to TypeScript.
 
 ---
 
