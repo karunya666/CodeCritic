@@ -1,4 +1,10 @@
+import { useEffect } from 'react'
+
 export default function Visualise() {
+  useEffect(() => {
+    document.title = 'Visualise | CodeCritic'
+  }, [])
+
   return (
     <div className="flex h-screen pt-12 bg-black items-center justify-center">
       <div className="flex flex-col items-center gap-4 text-center">

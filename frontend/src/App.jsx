@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { useAuth } from '@clerk/clerk-react'
+import { useEffect } from 'react'
 import Navbar from './components/common/Navbar'
 import Home from './pages/Home'
 import SignIn from './pages/SignIn'
@@ -22,6 +23,13 @@ const ProtectedRoute = ({ children }) => {
   }
 
   return children
+}
+
+function PageTitle({ title }) {
+  useEffect(() => {
+    document.title = title ? `${title} | CodeCritic` : 'CodeCritic — AI Code Review'
+  }, [title])
+  return null
 }
 
 function App() {
