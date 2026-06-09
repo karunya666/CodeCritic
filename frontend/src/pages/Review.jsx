@@ -5,8 +5,12 @@ import ReviewPanel from '../components/review/ReviewPanel'
 import SessionHistory from '../components/review/SessionHistory'
 import api from '../lib/api'
 import { useAuthToken } from '../hooks/useAuth'
+import { useEffect } from 'react'
 
 export default function Review() {
+  useEffect(() => {
+    document.title = 'Review | CodeCritic'
+  }, [])
   const [code, setCode] = useState('')
   const [review, setReview] = useState(null)
   const [loading, setLoading] = useState(false)
