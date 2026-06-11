@@ -6,6 +6,7 @@ import SessionHistory from '../components/review/SessionHistory'
 import api from '../lib/api'
 import { useAuthToken } from '../hooks/useAuth'
 import { useEffect } from 'react'
+import toast from 'react-hot-toast'
 
 export default function Review() {
   useEffect(() => {
@@ -32,27 +33,48 @@ export default function Review() {
   }
 
   const handleAnalyse = async () => {
-  if (!code.trim()) return
-  setLoading(true)
-  setReview(null)
-  try {
-    const token = await getToken()
-    const res = await api.post(
-      '/api/review',
-      { code },
-      { headers: { Authorization: `Bearer ${token}` } }
-    )
-    setReview(res.data.review)
-    setActiveSessionId(res.data.sessionId)
-    setIsReadOnly(false)
-    setIsOptimised(false)
-    setSessionsKey(prev => prev + 1)
-  } catch (err) {
-    console.error('Review failed', err)
-  } finally {
-    setLoading(false)
+    if (!code.trim()) return
+    setLoading(true)
+    setReview(null)
+
+    const coldStartTimer = setTimeout(() => {
+      toast('Server is waking up, please wait...', {
+        icon: '⏳',
+        duration: 25000,
+        style: {
+          background: '#111',
+          color: '#fff',
+          border: '1px solid rgba(255,214,10,0.3)',
+          fontFamily: 'Inter, sans-serif',
+          fontSize: '13px',
+        }
+      })
+    }, 5000)
+
+    try {
+      const token = await getToken()
+      const res = await api.post(
+        '/api/review',
+        { code },
+        { headers: { Authorization: `Bearer ${token}` } }
+      )
+      clearTimeout(coldStartTimer)
+      toast.dismiss()
+      setReview(res.data.review)
+      setActiveSessionId(res.data.sessionId)
+      setIsReadOnly(false)
+      setIsOptimised(false)
+      setSessionsKey(prev => prev + 1)
+      toast.success('Review complete!')
+    } catch (err) {
+      clearTimeout(coldStartTimer)
+      toast.dismiss()
+      console.error('Review failed', err)
+      toast.error('Failed to analyse code. Please try again.')
+    } finally {
+      setLoading(false)
+    }
   }
-}
 
   const handleOptimise = async () => {
     if (!code.trim()) return
@@ -81,8 +103,10 @@ export default function Review() {
       setActiveSessionId(reviewRes.data.sessionId)
       setSessionsKey(prev => prev + 1)
       setIsOptimised(true)
+      toast.success('Code optimised!')
     } catch (err) {
       console.error('Optimise failed', err)
+      toast.error('Failed to optimise code. Please try again.')
     } finally {
       setOptimising(false)
     }
@@ -103,6 +127,7 @@ export default function Review() {
       setIsOptimised(false)
     } catch (err) {
       console.error('Failed to load session', err)
+      toast.error('Failed to load session.')
     }
   }
 
@@ -129,10 +154,11 @@ export default function Review() {
         />
       </div>
       <div className="w-96">
-        <ReviewPanel
-          review={review}
-          loading={loading}
-        />
+          <ReviewPanel
+            review={review}
+            loading={loading}
+            sessionId={activeSessionId}
+          />
       </div>
     </div>
   </div>

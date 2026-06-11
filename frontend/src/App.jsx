@@ -9,6 +9,7 @@ import Review from './pages/Review'
 import Visualise from './pages/Visualise'
 import SSOCallback from './pages/SSOCallback'
 import PageLoader from './components/common/PageLoader'
+import ShareSession from './pages/ShareSession'
 
 import { AuthenticateWithRedirectCallback } from '@clerk/clerk-react'
 
@@ -58,6 +59,7 @@ function App() {
             </ProtectedRoute>
           }
         />
+        <Route path="/review/share/:id" element={<ShareSession />} />
       </Routes>
     </BrowserRouter>
   )
