@@ -1,8 +1,9 @@
 import { useState } from 'react'
+import toast from 'react-hot-toast'
 
 const tabs = ['Errors', 'Improvements', 'Complexity']
 
-export default function ReviewPanel({ review, loading }) {
+export default function ReviewPanel({ review, loading, sessionId }) {
   const [activeTab, setActiveTab] = useState('Errors')
 
   if (loading) {
@@ -54,6 +55,28 @@ export default function ReviewPanel({ review, loading }) {
       <div className="px-4 py-3 flex items-center justify-between"
         style={{ borderBottom: '1px solid rgba(255,255,255,0.06)' }}
       >
+        <button
+          onClick={() => {
+            const url = `${window.location.origin}/review/share/${sessionId}`
+            navigator.clipboard.writeText(url)
+            toast.success('Link copied to clipboard!')
+          }}
+          className="flex items-center gap-1.5 px-2 py-1 rounded transition-all duration-150 text-xs"
+          style={{
+            background: 'rgba(255,255,255,0.04)',
+            border: '1px solid rgba(255,255,255,0.06)',
+            color: '#8A8A8E',
+          }}
+          onMouseEnter={e => e.currentTarget.style.color = '#fff'}
+          onMouseLeave={e => e.currentTarget.style.color = '#8A8A8E'}
+        >
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <circle cx="18" cy="5" r="3" /><circle cx="6" cy="12" r="3" /><circle cx="18" cy="19" r="3" />
+            <line x1="8.59" y1="13.51" x2="15.42" y2="17.49" />
+            <line x1="15.41" y1="6.51" x2="8.59" y2="10.49" />
+          </svg>
+          share
+        </button>
         <div className="flex items-center gap-2">
           <div className="w-1.5 h-1.5 rounded-full bg-primary" />
           <span className="text-xs font-medium text-white">CodeCritic AI</span>
